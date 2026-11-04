@@ -12,6 +12,8 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "seed:dev": "ts-node -r tsconfig-paths/register src/scripts/seed-dev.ts",
+    "make:admin": "ts-node -r tsconfig-paths/register src/scripts/make-admin.ts",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",

@@ -1,19 +1,61 @@
-import { IsString, IsNotEmpty, IsNumber, IsInt, Min, IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
+import { ArrayNotEmpty, IsArray, IsBoolean, IsEnum, IsInt, IsObject, IsOptional, IsString, Min, ValidateNested } from 'class-validator';
+import { ProductType } from '../entities/product.entity';
+
+export class ProductOptionDto {
+  @IsString()
+  name!: string;
+
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsString({ each: true })
+  values!: string[];
+
+  @IsInt()
+  sortOrder!: number;
+}
 
 export class CreateProductDto {
   @IsString()
-  @IsNotEmpty()
-  name!: string;
+  slug!: string;
 
   @IsString()
+  name!: string;
+
   @IsOptional()
+  @IsString()
   description?: string;
 
-  @IsNumber({ maxDecimalPlaces: 2 })
-  @Min(0)
-  price!: number;
+  @IsEnum(ProductType)
+  type!: ProductType;
+
+  @IsOptional()
+  @IsString()
+  texture?: string;
+
+  @IsOptional()
+  @IsString()
+  origin?: string;
 
   @IsInt()
   @Min(0)
-  stock!: number;
+  leadTimeDays!: number;
+
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
+
+  @IsOptional()
+  @IsObject()
+  attributes?: Record<string, unknown>;
+
+  @IsArray()
+  @IsString({ each: true })
+  availableColours!: string[];
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => ProductOptionDto)
+  options?: ProductOptionDto[];
 }

@@ -97,3 +97,13 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+## Promote a user to admin
+
+Register the account first, then run this one-off PostgreSQL command from PowerShell. It uses the API's existing database environment variables and prompts for the database password when required. Replace the email with the registered account's email:
+
+```powershell
+psql -h $env:POSTGRES_HOST -p $env:POSTGRES_PORT -U $env:POSTGRES_USER -d $env:POSTGRES_DB -c 'UPDATE "user" SET "role" = ''admin'' WHERE "email" = ''admin@example.com'';'
+```
+
+Confirm that one row was updated. The promoted user must log in again to receive a JWT containing the admin role; existing tokens keep their previous role until they expire.

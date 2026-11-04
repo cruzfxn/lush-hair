@@ -26,6 +26,7 @@ dist/
 # Build outputs
 apps/api/documentation/
 apps/api/dist/
+apps/api/uploads/
 apps/web/.next/
 apps/web/out/
 apps/web/dist/

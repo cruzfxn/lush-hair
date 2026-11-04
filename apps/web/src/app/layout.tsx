@@ -1,12 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import '../styles/globals.css';
-
-const inter = Inter({ subsets: ['latin'] });
+import { SiteHeader } from '../features/account/site-header';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Next-Nest E-commerce Starter',
-  description: 'A starter project combining Next.js and NestJS for building e-commerce applications.',
+  title: 'Lush Hair | Made for you',
+  description: 'Shop thoughtfully made wigs, bundles and finishing pieces.',
 };
 
 export default function RootLayout({
@@ -16,9 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-slate-900 text-slate-300`}>
-        {children}
-      </body>
+      <body><SiteHeader />{children}</body>
     </html>
   );
 }

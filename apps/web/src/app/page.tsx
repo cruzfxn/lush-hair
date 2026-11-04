@@ -1,8 +1,14 @@
-export default function HomePage() {
-  return (
-    <div>
-      <h2 className="text-3xl font-bold text-white mb-6">Products</h2>
-      <p>The product grid will be displayed here.</p>
-    </div>
-  );
+import { Storefront } from '../features/products/storefront';
+import { getProducts } from '../lib/api';
+
+export const dynamic = 'force-dynamic';
+
+export default async function HomePage() {
+  try {
+    const products = await getProducts();
+    return <Storefront products={products} />;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'The store API is unavailable.';
+    return <Storefront products={[]} loadError={message} />;
+  }
 }

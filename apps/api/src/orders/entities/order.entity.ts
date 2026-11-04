@@ -21,10 +21,13 @@ export class Order {
   @Column()
   userId!: string;
 
+  @Column({ type: 'uuid', nullable: true, unique: true })
+  cartId!: string | null;
+
   @OneToMany(() => OrderItem, (item) => item.order, { cascade: true })
   items!: OrderItem[];
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ type: 'int' })
   total!: number;
 
   @Column({
