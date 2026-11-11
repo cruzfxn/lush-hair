@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, HttpException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -109,6 +109,7 @@ export class ProductsService {
     await this.dataSource.transaction(async (manager) => {
       const product = await manager.getRepository(Product).findOne({
         where: { id },
+        loadEagerRelations: false,
         lock: { mode: 'pessimistic_write' },
       });
       if (!product) throw new NotFoundException(`Product with ID "${id}" not found`);
@@ -145,6 +146,7 @@ export class ProductsService {
       return await this.dataSource.transaction(async (manager) => {
         const product = await manager.getRepository(Product).findOne({
           where: { id: productId },
+          loadEagerRelations: false,
           lock: { mode: 'pessimistic_write' },
         });
         if (!product) throw new NotFoundException(`Product with ID "${productId}" not found`);
@@ -170,8 +172,9 @@ export class ProductsService {
         return imageRepository.save(newImages);
       });
     } catch (error) {
-      await Promise.all(storedUrls.map((url) => this.imageStorage.delete(url)));
-      throw error;
+      await Promise.allSettled(storedUrls.map((url) => this.imageStorage.delete(url)));
+      if (error instanceof HttpException) throw error;
+      throw new InternalServerErrorException('Image upload failed. Any uploaded files were cleaned up; please try again.');
     }
   }
 
@@ -186,6 +189,7 @@ export class ProductsService {
     return this.dataSource.transaction(async (manager) => {
       const product = await manager.getRepository(Product).findOne({
         where: { id: productId },
+        loadEagerRelations: false,
         lock: { mode: 'pessimistic_write' },
       });
       if (!product) throw new NotFoundException(`Product with ID "${productId}" not found`);

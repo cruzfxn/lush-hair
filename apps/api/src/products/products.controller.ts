@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, UseGuards, Request, UploadedFiles, UseInterceptors, Put } from '@nestjs/common';
+import { ArgumentsHost, BadRequestException, Catch, Controller, ExceptionFilter, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, UseFilters, UseGuards, Request, UploadedFiles, UseInterceptors, Put } from '@nestjs/common';
+import { PayloadTooLargeException } from '@nestjs/common/exceptions/payload-too-large.exception';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -17,6 +18,15 @@ const imageUploadOptions = {
 };
 
 type UploadedProductImage = { buffer: Buffer; size: number };
+
+@Catch(PayloadTooLargeException)
+class ImageSizeLimitFilter implements ExceptionFilter<PayloadTooLargeException> {
+  catch(_exception: PayloadTooLargeException, host: ArgumentsHost): void {
+    const response = host.switchToHttp().getResponse();
+    const badRequest = new BadRequestException('Each image must be 5 MB or smaller.');
+    response.status(400).json(badRequest.getResponse());
+  }
+}
 
 @Controller('products')
 export class ProductsController {
@@ -89,6 +99,7 @@ export class ProductsController {
   @Post(':id/images')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin')
+  @UseFilters(new ImageSizeLimitFilter())
   @UseInterceptors(FilesInterceptor('files', 5, imageUploadOptions))
   uploadImages(
     @Param('id', ParseUUIDPipe) id: string,

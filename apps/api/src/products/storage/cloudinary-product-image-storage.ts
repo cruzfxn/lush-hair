@@ -21,14 +21,24 @@ export class CloudinaryProductImageStorage extends ProductImageStorage {
     });
     const response = await fetch(`https://api.cloudinary.com/v1_1/${this.cloudName}/image/upload`, { method: 'POST', body });
     if (!response.ok) throw new InternalServerErrorException('Cloudinary image upload failed.');
-    const result = await response.json() as { secure_url: string };
-    return result.secure_url;
+    try {
+      const result = await response.json() as { secure_url?: string };
+      if (!result.secure_url) throw new Error('Cloudinary did not return the uploaded image URL.');
+      return result.secure_url;
+    } catch {
+      await this.deletePublicId(publicId).catch(() => undefined);
+      throw new InternalServerErrorException('Cloudinary uploaded the image but could not confirm it; cleanup was attempted.');
+    }
   }
 
   async delete(url: string): Promise<void> {
     const match = new URL(url).pathname.match(/\/upload\/(?:v\d+\/)?(.+)$/);
     if (!match) return;
     const publicId = decodeURIComponent(match[1]).replace(/\.[^.]+$/, '');
+    await this.deletePublicId(publicId);
+  }
+
+  private async deletePublicId(publicId: string): Promise<void> {
     const timestamp = Math.floor(Date.now() / 1000).toString();
     const signature = this.sign(`public_id=${publicId}&timestamp=${timestamp}`);
     const body = new URLSearchParams({ public_id: publicId, timestamp, api_key: this.apiKey, signature });
