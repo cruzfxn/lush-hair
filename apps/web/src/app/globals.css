@@ -222,16 +222,16 @@ button, select { font: inherit; }
 .loading-panel { height: 240px; margin-top: 25px; border-radius: 6px; background: linear-gradient(90deg, #f0e7df 20%, #f8f2ed 38%, #f0e7df 60%); background-size: 400% 100%; animation: shimmer 1.4s ease infinite; }
 @keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
 
-/* ByteBridge Hair theme tokens: edit site-config.ts and these mapped values to re-theme. */
+/* Theme values map to site-config.ts. */
 :root {
   --background: #FAF9F6;
   --foreground: #0A0A0A;
   --ink: #0A0A0A;
   --ivory: #FAF9F6;
-  --gold: #C8A96A;
-  --bronze: #8A6A2F;
+  --gold: #C8A048;
+  --bronze: #73551F;
   --muted: #5f5b54;
-  --rule: rgba(200, 169, 106, .45);
+  --rule: rgba(200, 160, 72, .45);
   --space-1: 8px; --space-2: 16px; --space-3: 24px; --space-4: 40px; --space-5: 64px; --space-6: 96px;
   --radius-sm: 2px; --radius-md: 4px;
   --shadow-drawer: -18px 0 60px rgba(0,0,0,.22);
@@ -246,9 +246,10 @@ a, button, input, select { -webkit-tap-highlight-color: transparent; }
 .announcement-bar { min-height: 31px; display: grid; place-items: center; padding: 6px 12px; background: var(--gold); color: var(--ink); text-align: center; font-size: 10px; letter-spacing: .08em; }
 .site-header { position: relative; top: auto; border: 0; background: var(--ink); color: var(--ivory); backdrop-filter: none; }
 .site-header-inner { width: min(1440px, calc(100% - 64px)); min-height: 76px; }
-.brand-mark { color: var(--ivory); font-family: var(--font-serif); font-weight: 500; font-size: 28px; letter-spacing: .015em; white-space: nowrap; }
-.brand-mark span { margin: 0; color: inherit; }
-.brand-mark img { display: block; width: auto; height: 38px; }
+.brand-mark { color: var(--ivory); font-family: var(--font-serif); font-weight: 500; white-space: nowrap; text-align: center; }
+.brand-wordmark, .brand-mark { display: flex; flex-direction: column; align-items: center; line-height: .9; }
+.brand-wordmark > span, .brand-mark > span { margin: 0; color: var(--ivory); font-size: 27px; letter-spacing: .12em; }
+.brand-wordmark small, .brand-mark small { margin-top: 5px; color: var(--gold); font-family: var(--font-sans); font-size: 8px; font-weight: 600; letter-spacing: .25em; }
 .site-nav { color: var(--ivory); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
 .site-nav a:hover, .nav-button:hover { color: var(--gold); }
 .nav-button { color: inherit; text-transform: uppercase; letter-spacing: inherit; }
@@ -323,11 +324,12 @@ a, button, input, select { -webkit-tap-highlight-color: transparent; }
 .story-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; background: var(--ink); color: var(--ivory); }
 .story-visual { min-height: 460px; position: relative; overflow: hidden; display: grid; place-items: center; background: radial-gradient(ellipse at 50% 40%, #37312b, #151412 70%); }
 .story-visual img { object-fit: cover; }
-.story-placeholder { width: 72%; height: 75%; display: grid; place-items: center; border: 1px solid rgba(200,169,106,.55); color: var(--gold); text-align: center; font-family: var(--font-serif); font-size: 24px; letter-spacing: .12em; line-height: 1.6; }
+.story-visual .story-brand-logo { width: min(72%, 420px); height: auto; object-fit: contain; }
+.story-placeholder { width: 72%; height: 75%; display: grid; place-items: center; border: 1px solid rgba(200,160,72,.55); color: var(--gold); text-align: center; font-family: var(--font-serif); font-size: 24px; letter-spacing: .12em; line-height: 1.6; }
 .story-copy { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 70px clamp(32px, 8vw, 120px); }
 .story-copy h2 { max-width: 440px; margin: 14px 0 18px; }
 .story-copy > p:not(.eyebrow) { max-width: 420px; color: #d0cbc3; font-size: 13px; line-height: 1.9; }
-.story-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; padding-bottom: 8px; border-bottom: 1px solid var(--gold); color: var(--bronze); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+.story-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; padding-bottom: 8px; border-bottom: 1px solid var(--gold); color: var(--gold); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
 .newsletter-section { padding: 80px 20px; background: var(--ivory); color: var(--ink); text-align: center; }
 .newsletter-section .eyebrow { color: var(--bronze); }
 .newsletter-section h2 { margin: 10px 0; font-size: 48px; }
@@ -337,7 +339,7 @@ a, button, input, select { -webkit-tap-highlight-color: transparent; }
 .newsletter-form button { display: inline-flex; align-items: center; gap: 8px; border: 0; background: transparent; color: var(--bronze); cursor: pointer; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
 .newsletter-section small { color: var(--muted); font-size: 9px; }
 .site-footer { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1.2fr; gap: 30px; padding: 62px max(6vw, calc((100vw - 1320px) / 2)) 20px; background: var(--ink); color: var(--ivory); }
-.footer-wordmark { font-family: var(--font-serif); font-size: 25px; }
+.footer-brand-logo { display: block; width: 150px; height: auto; }
 .footer-brand p, .footer-newsletter p { color: #bcb6ad; font-size: 11px; line-height: 1.7; }
 .footer-column { display: flex; flex-direction: column; gap: 12px; }
 .footer-column h3, .footer-newsletter h3 { margin: 0 0 6px; color: var(--gold); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
@@ -345,7 +347,7 @@ a, button, input, select { -webkit-tap-highlight-color: transparent; }
 .footer-column a:hover, .footer-newsletter a:hover { color: var(--gold); }
 .footer-placeholder { color: #aaa49c !important; }
 .footer-newsletter a { display: inline-flex; align-items: center; gap: 7px; }
-.footer-bottom { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 16px; margin-top: 35px; padding-top: 17px; border-top: 1px solid rgba(200,169,106,.35); color: #bcb6ad; font-size: 9px; }
+.footer-bottom { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 16px; margin-top: 35px; padding-top: 17px; border-top: 1px solid rgba(200,160,72,.35); color: #bcb6ad; font-size: 9px; }
 .footer-bottom a { color: var(--gold); }
 .drawer-backdrop { position: fixed; z-index: 50; inset: 0; visibility: hidden; background: rgba(0,0,0,.55); opacity: 0; transition: opacity .25s, visibility .25s; }
 .drawer-backdrop.drawer-open { visibility: visible; opacity: 1; }
@@ -382,12 +384,12 @@ a, button, input, select { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 760px) {
   .site-header-inner { width: calc(100% - 30px); min-height: 66px; display: grid; grid-template-columns: 38px 1fr 58px; gap: 8px; }
   .mobile-menu-toggle { display: inline-flex; }
-  .brand-mark { justify-self: center; font-size: 23px; }
-  .brand-mark img { height: 32px; max-width: 190px; }
+  .brand-mark { justify-self: center; }
+  .brand-wordmark > span, .brand-mark > span { font-size: 23px; }
   .site-nav-desktop { display: none; }
   .bag-button { justify-self: end; }
   .mobile-menu { position: absolute; z-index: 20; top: 100%; right: 0; left: 0; display: flex; flex-direction: column; gap: 0; padding: 8px 24px 20px; background: var(--ink); box-shadow: 0 16px 24px rgba(0,0,0,.2); }
-  .mobile-menu a, .mobile-menu span, .mobile-menu button { padding: 15px 0; border-bottom: 1px solid rgba(200,169,106,.25); text-align: left; }
+  .mobile-menu a, .mobile-menu span, .mobile-menu button { padding: 15px 0; border-bottom: 1px solid rgba(200,160,72,.25); text-align: left; }
   .hero { min-height: 620px; padding: 72px 26px 95px; }
   .hero-shade { background: linear-gradient(90deg, rgba(10,10,10,.91), rgba(10,10,10,.5)); }
   .hero h1 { font-size: clamp(56px, 14vw, 82px); }
@@ -413,7 +415,7 @@ a, button, input, select { -webkit-tap-highlight-color: transparent; }
 }
 @media (max-width: 390px) {
   .announcement-bar { font-size: 9px; }
-  .brand-mark { font-size: 20px; }
+  .brand-wordmark > span, .brand-mark > span { font-size: 20px; }
   .hero { min-height: 570px; padding-right: 20px; padding-left: 20px; }
   .hero h1 { font-size: 54px; }
   .featured-section, .category-section, .all-styles-section { padding-right: 18px; padding-left: 18px; }
@@ -448,7 +450,8 @@ a, button, input, select { -webkit-tap-highlight-color: transparent; }
 
 @media (max-width: 460px) {
   .site-header-inner { width: calc(100% - 24px); min-height: 62px; gap: 8px; }
-  .brand-mark { font-size: 15px; letter-spacing: .12em; }
+  .brand-wordmark > span, .brand-mark > span { font-size: 17px; letter-spacing: .1em; }
+  .brand-wordmark small, .brand-mark small { font-size: 7px; letter-spacing: .2em; }
   .site-nav { gap: 10px; font-size: 11px; }
   .account-greeting { display: none; }
   .cart-item-controls { flex-wrap: wrap; }

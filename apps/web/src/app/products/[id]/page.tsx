@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ProductDetail } from '../../../features/products/product-detail';
 import { ApiError, getProduct } from '../../../lib/api';
+import { siteConfig } from '../../../site-config';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,7 +16,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     const message = error instanceof Error ? error.message : 'The store API is unavailable.';
     return (
       <main className="store-shell">
-        <header className="store-header"><Link className="brand-mark" href="/">LUSH<span>HAIR</span></Link></header>
+        <header className="store-header"><Link className="brand-mark" href="/"><span>{siteConfig.brand.wordmark}</span><small>{siteConfig.brand.descriptor}</small></Link></header>
         <div className="notice-card" role="alert">
           <h1>We couldn’t load this product.</h1>
           <p>{message}</p>

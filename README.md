@@ -1,5 +1,5 @@
-# Next.js-NestJS-E-commerce-Starter BoilerPlate 🚀
-An **opinionated, typesafe monorepo boilerplate** featuring **Next.js**, **NestJS**, **PostgreSQL**, **Tailwind CSS**, and pre-configured **GitHub Actions** for CI/CD.
+# Zitachi Luxury Hair
+An **opinionated, typesafe monorepo storefront** for Zitachi Luxury Hair, built with **Next.js**, **NestJS**, **PostgreSQL**, **Tailwind CSS**, and pre-configured **GitHub Actions** for CI/CD.
 
 ---
 ## Features
@@ -29,6 +29,12 @@ Monorepo: pnpm Workspaces
 CI/CD: GitHub Actions
 
 Container: Docker
+
+## Zitachi Luxury Hair storefront
+
+The Next.js storefront is branded as **Zitachi Luxury Hair**, with the wordmark **ZITACHI** and **LUXURY HAIR** beneath it. The tagline is **Beauty Beyond Ordinary**. Storefront copy, theme colors, logo paths, and social sharing assets are configured in [`apps/web/src/site-config.ts`](apps/web/src/site-config.ts). The supplied black-background logo is used on dark sections; the compact text wordmark is used in the header.
+
+New product image uploads to Cloudinary use the `zitachi/products` folder. Previously uploaded assets keep their existing paths.
 
 ## 🚀 Getting Started
 
@@ -153,7 +159,7 @@ These instructions deploy the web app to Vercel and the NestJS API plus PostgreS
    - `NEXT_PUBLIC_API_URL` = the public Render API URL, with no trailing slash
    - `STAGING_PASSWORD` = a long, unique staging-only password
 
-   `NEXT_PUBLIC_API_URL` is the only application environment variable intentionally made available to browser JavaScript. Do not prefix credentials or other secrets with `NEXT_PUBLIC_`.
+   `NEXT_PUBLIC_API_URL` is public configuration. Do not prefix credentials or other secrets with `NEXT_PUBLIC_`.
 3. Deploy. Open the Vercel URL and enter username `staging` and the password you configured when the browser prompts for Basic Authentication. To leave the gate disabled, omit `STAGING_PASSWORD`; keep it set for a private staging deployment.
 
 ### 4. Point the API and web app at each other
@@ -187,4 +193,4 @@ The commands use `DATABASE_URL` (or the split `POSTGRES_*` values), honor `DATAB
 
 ### Environment variable reference
 
-The root [.env.example](.env.example) lists every application variable without real credentials. API-only server variables include `JWT_SECRET`, `DATABASE_URL` or the `POSTGRES_*` group, `DATABASE_SSL`, `PORT`, `CORS_ORIGINS`, `TYPEORM_SYNCHRONIZE`, `API_PUBLIC_URL`, `IMAGE_STORAGE`, and the optional Cloudinary credentials. Web variables are `NEXT_PUBLIC_API_URL` and optional `STAGING_PASSWORD`. Only `NEXT_PUBLIC_API_URL` is public to browser code.
+The root [.env.example](.env.example) lists every application variable without real credentials. API-only server variables include `JWT_SECRET`, `DATABASE_URL` or the `POSTGRES_*` group, `DATABASE_SSL`, `PORT`, `CORS_ORIGINS`, `TYPEORM_SYNCHRONIZE`, `API_PUBLIC_URL`, `IMAGE_STORAGE`, and the optional Cloudinary credentials. Web variables are `NEXT_PUBLIC_API_URL` and optional `STAGING_PASSWORD`. Only `NEXT_PUBLIC_API_URL` is intentionally made available to browser code.

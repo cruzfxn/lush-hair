@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -36,7 +35,7 @@ export function SiteHeader() {
       <div className="site-header-inner">
         <button className="mobile-menu-toggle" type="button" aria-label={mobileOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileOpen} onClick={() => setMobileOpen((open) => !open)}>{mobileOpen ? <X /> : <Menu />}</button>
         <Link className="brand-mark" href="/" aria-label={`${siteConfig.brand.name} home`}>
-          {siteConfig.brand.logoImage ? <Image src={siteConfig.brand.logoImage} alt={siteConfig.brand.name} width={190} height={42} priority /> : <span>{siteConfig.brand.name}</span>}
+          <span className="brand-wordmark"><span>{siteConfig.brand.wordmark}</span><small>{siteConfig.brand.descriptor}</small></span>
         </Link>
         <nav className="site-nav site-nav-desktop" aria-label="Main navigation">{links()}</nav>
         <button className="bag-button" type="button" onClick={() => setCartOpen(true)} aria-label={`Open bag, ${bagCount} items`}><span>Bag</span><span className="bag-count">{bagCount}</span></button>

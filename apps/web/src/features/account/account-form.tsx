@@ -5,6 +5,7 @@ import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ApiError, apiFetch, Cart } from '../../lib/api';
 import { useCartStore } from '../cart/store';
+import { siteConfig } from '../../site-config';
 
 type AccountFormProps = { mode: 'login' | 'register' };
 type LoginResponse = { access_token: string };
@@ -76,7 +77,7 @@ export function AccountForm({ mode }: AccountFormProps) {
   return (
     <main className="account-page">
       <section className="account-card">
-        <p className="eyebrow">LUSH HAIR ACCOUNT</p>
+        <p className="eyebrow">{siteConfig.brand.name.toUpperCase()} ACCOUNT</p>
         <h1>{isRegister ? 'Create your account' : 'Welcome back'}</h1>
         <p className="account-intro">{isRegister ? 'Save your details and keep your order moving.' : 'Log in to continue to your cart and checkout.'}</p>
         <form className="account-form" onSubmit={submit}>
@@ -94,7 +95,7 @@ export function AccountForm({ mode }: AccountFormProps) {
           </button>
         </form>
         <p className="account-switch">
-          {isRegister ? 'Already have an account?' : 'New to Lush Hair?'}{' '}
+          {isRegister ? 'Already have an account?' : `New to ${siteConfig.brand.name}?`}{' '}
           <Link href={isRegister ? '/login' : '/register'}>{isRegister ? 'Log in' : 'Create an account'}</Link>
         </p>
       </section>

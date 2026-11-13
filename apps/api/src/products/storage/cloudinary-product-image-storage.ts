@@ -10,7 +10,7 @@ export class CloudinaryProductImageStorage extends ProductImageStorage {
 
   async save(buffer: Buffer, contentType: SupportedImageMimeType): Promise<string> {
     const timestamp = Math.floor(Date.now() / 1000).toString();
-    const publicId = `products/${randomUUID()}`;
+    const publicId = `zitachi/products/${randomUUID()}`;
     const signature = this.sign(`public_id=${publicId}&timestamp=${timestamp}`);
     const body = new URLSearchParams({
       file: `data:${contentType};base64,${buffer.toString('base64')}`,

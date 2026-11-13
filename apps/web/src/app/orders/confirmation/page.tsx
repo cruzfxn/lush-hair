@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useCartStore } from '../../../features/cart/store';
 import { formatNairaFromKobo } from '../../../lib/api';
+import { siteConfig } from '../../../site-config';
 
 export default function OrderConfirmationPage() {
   const order = useCartStore((state) => state.lastOrder);
@@ -19,7 +20,7 @@ export default function OrderConfirmationPage() {
     <main className="store-shell confirmation-page">
       <section className="confirmation-card">
         <p className="eyebrow">ORDER PLACED</p>
-        <h1>Thank you for your order.</h1>
+        <h1>Thank you for choosing {siteConfig.brand.name}.</h1>
         <p className="order-number">Order number <strong>{order.id}</strong></p>
         <div className="confirmation-items">
           {order.items.map((item) => {
